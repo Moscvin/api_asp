@@ -36,10 +36,12 @@ namespace BookAPI.Repositories
             return _collection.Find(new BsonDocument()).ToList();
         }
 
-        public T GetRecordById(Guid id)
-        {
-            return _collection.Find(record => record.Id == id).FirstOrDefault();
-        }
+      public T GetRecordById(Guid id)
+{
+    return _collection.Find(record => record.Id == id).FirstOrDefault();
+}
+
+
 
         public T InsertRecord(T record)
         {

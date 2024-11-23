@@ -42,3 +42,4 @@
 /home/vlad/Desktop/api_asp/BookAPI/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /home/vlad/Desktop/api_asp/BookAPI/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
 /home/vlad/Desktop/api_asp/BookAPI/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+/home/vlad/Desktop/api_asp/BookAPI/obj/Debug/net8.0/BookAPI.sourcelink.json

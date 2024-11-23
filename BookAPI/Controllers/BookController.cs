@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using BookAPI.Repositories;
 using Common.Models;
+using System.Diagnostics.Contracts;
 
 namespace BookAPI.Controllers
 {
@@ -31,6 +32,17 @@ namespace BookAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
+        {
+            var book = _bookRepository.GetRecordById(id);
+            if (book == null)
+            {
+                return NotFound($"Book with ID {id} not found.");
+            }
+            return Ok(book);
+        }
+
 
         // POST: api/book
         [HttpPost]
@@ -40,9 +52,14 @@ namespace BookAPI.Controllers
             {
                 return BadRequest("Book is null.");
             }
-
+            book.LastChangeAt = DateTime.UtcNow;
             _bookRepository.InsertRecord(book);
             return Ok(new { Message = "Book Created", Book = book });
+        }
+        [HttpDelete]
+        public IActionResult Delete(Guid id)
+        {
+            return Ok();
         }
     }
 }
