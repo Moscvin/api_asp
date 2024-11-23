@@ -42,8 +42,6 @@ namespace BookAPI.Controllers
             }
             return Ok(book);
         }
-
-
         // POST: api/book
         [HttpPost]
         public IActionResult Create([FromBody] Book book)
@@ -56,10 +54,30 @@ namespace BookAPI.Controllers
             _bookRepository.InsertRecord(book);
             return Ok(new { Message = "Book Created", Book = book });
         }
-        [HttpDelete]
+        // PUT: api/book
+        [HttpPut]
+        public IActionResult Upsert([FromBody] Book book)
+        {
+            if (book.Id== Guid.Empty)
+            {
+                return BadRequest("Book ID is null.");
+            }
+            book.LastChangeAt = DateTime.UtcNow;
+            _bookRepository.UpsertRecord(book);
+
+            return Ok(new { Message = "Book Updated", Book = book });
+        }
+        [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            return Ok();
+            var book = _bookRepository.GetRecordById(id);
+            if (book == null)
+            {
+                return NotFound($"Book with ID {id} not found.");
+            }
+            _bookRepository.DeleteRecord(id);
+            return Ok(new { Message = "Book Deleted", Book = book });
         }
+
     }
 }

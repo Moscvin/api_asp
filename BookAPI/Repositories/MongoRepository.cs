@@ -36,10 +36,10 @@ namespace BookAPI.Repositories
             return _collection.Find(new BsonDocument()).ToList();
         }
 
-      public T GetRecordById(Guid id)
-{
-    return _collection.Find(record => record.Id == id).FirstOrDefault();
-}
+        public T GetRecordById(Guid id)
+        {
+            return _collection.Find(record => record.Id == id).FirstOrDefault();
+        }
 
 
 
@@ -51,14 +51,13 @@ namespace BookAPI.Repositories
 
         public void UpsertRecord(T record)
         {
-            var filter = Builders<T>.Filter.Eq(doc => doc.Id, record.Id);
-            _collection.ReplaceOne(filter, record, new ReplaceOptions { IsUpsert = true });
+            _collection.ReplaceOne(doc => doc.Id == record.Id, record, new ReplaceOptions { IsUpsert = true });
+            
         }
 
         public void DeleteRecord(Guid id)
         {
-            var filter = Builders<T>.Filter.Eq(record => record.Id, id);
-            _collection.DeleteOne(filter);
+           _collection.DeleteOne(record => record.Id == id);
         }
     }
 }
