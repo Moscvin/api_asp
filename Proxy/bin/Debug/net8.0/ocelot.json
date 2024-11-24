@@ -1,0 +1,17 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/{url}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 9001
+          }
+        ],
+        "UpstreamPathTemplate": "/{url}",
+        "UpstreamHttpMethod": [ "Get" ]
+      }
+    ]
+  }
+  
